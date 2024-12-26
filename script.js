@@ -1,10 +1,13 @@
+let clippings = [];
+let books = {};
+
 document.getElementById('fileInput').addEventListener('change', function(event) {
     const file = event.target.files[0];
     if (file) {
         const reader = new FileReader();
         reader.onload = function(e) {
             const content = e.target.result;
-            const clippings = parseClippings(content);
+            clippings = parseClippings(content);
             displayBookList(clippings);
         };
         reader.readAsText(file);
@@ -21,9 +24,11 @@ function parseClippings(content) {
             const lastParenIndex = titleAuthor.lastIndexOf('(');
             const title = titleAuthor.substring(0, lastParenIndex).trim();
             const author = titleAuthor.substring(lastParenIndex + 1, titleAuthor.length - 2).trim();
-            const metaParts = meta.split(' | ');
-            if (metaParts.length === 3) {
-                const [type, location, datetime] = metaParts;
+            const metaParts = meta.trim().split(' | '); // Trim the meta line before splitting
+            if (metaParts.length >= 2) {
+                const type = metaParts[0];
+                const location = metaParts.length === 3 ? metaParts[1] : '';
+                const datetime = metaParts.length === 3 ? metaParts[2] : metaParts[1];
                 clippings.push({
                     title: title,
                     author: author,
@@ -42,7 +47,7 @@ function parseClippings(content) {
 
 function displayBookList(clippings) {
     const bookListDiv = document.getElementById('bookList');
-    const books = {};
+    books = {};
 
     clippings.forEach(clipping => {
         if (!books[clipping.title]) {
@@ -51,11 +56,26 @@ function displayBookList(clippings) {
         books[clipping.title].push(clipping);
     });
 
-    for (const [title, clippings] of Object.entries(books)) {
+    sortBookList();
+}
+
+function sortBookList() {
+    const sortSelect = document.getElementById('sortSelect').value;
+    const bookListDiv = document.getElementById('bookList');
+    bookListDiv.innerHTML = '';
+
+    let sortedBooks = Object.entries(books);
+
+    if (sortSelect === 'alphabetical') {
+        sortedBooks.sort((a, b) => a[0].localeCompare(b[0]));
+    } else if (sortSelect === 'default-desc') {
+        sortedBooks.reverse();
+    }
+
+    sortedBooks.forEach(([title, clippings]) => {
         const bookTitleDiv = document.createElement('div');
         bookTitleDiv.className = 'book-title';
         bookTitleDiv.textContent = title;
-        bookTitleDiv.title = 'Click title to copy all clippings to clipboard';
         bookTitleDiv.addEventListener('click', () => copyBookClippingsToClipboard(clippings));
         bookListDiv.appendChild(bookTitleDiv);
 
@@ -68,7 +88,7 @@ function displayBookList(clippings) {
             clippingDiv.addEventListener('click', () => displayClippingDetails(clipping));
             bookListDiv.appendChild(clippingDiv);
         });
-    }
+    });
 }
 
 function displayClippingDetails(clipping) {
@@ -79,11 +99,12 @@ function displayClippingDetails(clipping) {
         <hr class="hr-details">
         Type: <span class="clipping-type" id="clippingType">${clipping.type}</span><br />
         Location: <span class="clipping-location">${clipping.location}</span><br />
-        Date Added: <span class="clipping-datetime">${clipping.datetime}</span><br />
+        ${clipping.datetime ? `Date Added: <span class="clipping-datetime">${clipping.datetime}</span><br />` : ''}
         ${clipping.text ? `<div id="clippingText" class="clipping-text">${clipping.text}<br /></div>` : ''}<br />
         <div id="status-message"><span id="message-display"></span></div>
     `;
 }
+
 
 function copyToClipboard(text) {
     navigator.clipboard.writeText(text).then(() => {

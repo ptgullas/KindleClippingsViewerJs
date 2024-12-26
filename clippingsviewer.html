@@ -9,6 +9,11 @@
 <body>
     <h1>Kindle Clippings Viewer</h1>
     <input type="file" id="fileInput" accept=".txt">
+    <select id="sortSelect" onchange="sortBookList()"> 
+        <option value="default">Default Sort (Ascending)</option> 
+        <option value="default-desc">Default Sort (Descending)</option> 
+        <option value="alphabetical">Alphabetical (A-Z)</option> 
+    </select>    
     <div class="container">
         <div id="bookList" class="frame"></div>
         <div class="right-frame">
