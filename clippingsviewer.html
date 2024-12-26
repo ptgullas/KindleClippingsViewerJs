@@ -11,8 +11,12 @@
     <input type="file" id="fileInput" accept=".txt">
     <div class="container">
         <div id="bookList" class="frame"></div>
-        <div id="clippingDetails" class="frame"></div>
-        <button class="button" onclick="copyAreaToClipboard('clippingText')">Copy Clipping Text</button>
+        <div class="right-frame">
+            <div id="clippingDetails" class="frame"></div>
+            <center>
+                <button class="button-28" role="button" onclick="copyAreaToClipboard('clippingText')">Copy Clipping Text</button>
+            </center>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
