@@ -55,6 +55,7 @@ function displayBookList(clippings) {
         const bookTitleDiv = document.createElement('div');
         bookTitleDiv.className = 'book-title';
         bookTitleDiv.textContent = title;
+        bookTitleDiv.title = 'Click title to copy all clippings to clipboard';
         bookTitleDiv.addEventListener('click', () => copyBookClippingsToClipboard(clippings));
         bookListDiv.appendChild(bookTitleDiv);
 
