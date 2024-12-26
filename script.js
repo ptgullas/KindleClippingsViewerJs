@@ -72,12 +72,13 @@ function displayBookList(clippings) {
 function displayClippingDetails(clipping) {
     const clippingDetailsDiv = document.getElementById('clippingDetails');
     clippingDetailsDiv.innerHTML = `
-        <div class="clipping-title">Title: ${clipping.title}</div>
-        <div class="clipping-author">Author: ${clipping.author}</div>
-        <div class="clipping-type">Type: ${clipping.type}</div>
-        <div class="clipping-location">Location: ${clipping.location}</div>
-        <div class="clipping-datetime">DateTime: ${clipping.datetime}</div>
-        ${clipping.text ? `<br /><div class="clipping-text">${clipping.text}<button class="copy-button" onclick="copyToClipboard('${clipping.text}')">Copy</button></div>` : ''}
+        <div class="clipping-title">${clipping.title}</div>
+        <div class="clipping-author">${clipping.author}</div>
+        Type: <span class="clipping-type">${clipping.type}</span><br />
+        Location: <span class="clipping-location">${clipping.location}</span><br />
+        Date Added: <span class="clipping-datetime">${clipping.datetime}</span><br />
+        ${clipping.text ? `<div id="clippingText" class="clipping-text">${clipping.text}<br /></div>` : ''}
+        <div id="copyButton"><button class="copy-button" onclick="copyToClipboard('${clipping.text}')">Copy</button></div>
     `;
 }
 
@@ -86,3 +87,11 @@ function copyToClipboard(text) {
         alert('Text copied to clipboard!');
     });
 }
+
+function copyAreaToClipboard(areaName) {
+    /* Get the text field */
+    var clippingDiv = document.getElementById(areaName);
+  
+    /* Copy the text inside the text field */
+    copyToClipboard(clippingDiv.innerText);
+  } 
