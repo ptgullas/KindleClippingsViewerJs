@@ -74,7 +74,7 @@ function displayClippingDetails(clipping) {
     clippingDetailsDiv.innerHTML = `
         <div class="clipping-title">${clipping.title}</div>
         <div class="clipping-author">${clipping.author}</div>
-        Type: <span class="clipping-type">${clipping.type}</span><br />
+        Type: <span class="clipping-type" id="clippingType">${clipping.type}</span><br />
         Location: <span class="clipping-location">${clipping.location}</span><br />
         Date Added: <span class="clipping-datetime">${clipping.datetime}</span><br />
         ${clipping.text ? `<div id="clippingText" class="clipping-text">${clipping.text}<br /></div>` : ''}
@@ -89,9 +89,10 @@ function copyToClipboard(text) {
 }
 
 function copyAreaToClipboard(areaName) {
+    var clippingType = document.getElementById("clippingType");
     /* Get the text field */
     var clippingDiv = document.getElementById(areaName);
   
     /* Copy the text inside the text field */
-    copyToClipboard(clippingDiv.innerText);
+    copyToClipboard(`${clippingType.innerText}: ${clippingDiv.innerText}`);
   } 
