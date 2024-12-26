@@ -55,6 +55,7 @@ function displayBookList(clippings) {
         const bookTitleDiv = document.createElement('div');
         bookTitleDiv.className = 'book-title';
         bookTitleDiv.textContent = title;
+        bookTitleDiv.addEventListener('click', () => copyBookClippingsToClipboard(clippings));
         bookListDiv.appendChild(bookTitleDiv);
 
         clippings.sort((a, b) => parseInt(a.location.split('-')[0]) - parseInt(b.location.split('-')[0]));
@@ -74,17 +75,17 @@ function displayClippingDetails(clipping) {
     clippingDetailsDiv.innerHTML = `
         <div class="clipping-title">${clipping.title}</div>
         <div class="clipping-author">${clipping.author}</div>
+        <hr class="hr-details">
         Type: <span class="clipping-type" id="clippingType">${clipping.type}</span><br />
         Location: <span class="clipping-location">${clipping.location}</span><br />
         Date Added: <span class="clipping-datetime">${clipping.datetime}</span><br />
         ${clipping.text ? `<div id="clippingText" class="clipping-text">${clipping.text}<br /></div>` : ''}
-        <div id="copyButton"><button class="copy-button" onclick="copyToClipboard('${clipping.text}')">Copy</button></div>
     `;
 }
 
 function copyToClipboard(text) {
     navigator.clipboard.writeText(text).then(() => {
-        alert('Text copied to clipboard!');
+        flashAreaForMilliseconds('clippingDetails',200);
     });
 }
 
@@ -96,3 +97,20 @@ function copyAreaToClipboard(areaName) {
     /* Copy the text inside the text field */
     copyToClipboard(`${clippingType.innerText}: ${clippingDiv.innerText}`);
   } 
+
+  function flashAreaForMilliseconds(areaName, ms) {
+    var areaToFlash = document.getElementById(areaName);
+    var originalColor = areaToFlash.style.backgroundColor;
+    areaToFlash.style.backgroundColor = '#ffff3f';
+
+    setTimeout(function() {
+        areaToFlash.style.backgroundColor = originalColor;
+    }, ms);
+}
+
+function copyBookClippingsToClipboard(clippings) {
+    const clippingTexts = clippings.map(clipping => {
+        return `${clipping.type}: ${clipping.text}`;
+    }).join('\n');
+    copyToClipboard(clippingTexts);
+}

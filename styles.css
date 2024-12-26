@@ -19,15 +19,21 @@ body {
     font-family: 'Segoe UI', Arial, sans-serif;
     background-color: var(--prussian-blue);
     color: var(--papaya-whip);
-    padding: 20px;
+    padding: 0 20px 20px 20px;
 }
 
 h1 {
-    color: var(--fire-brick);
+    color: var(--papaya-whip);
+    text-align: center;
 }
 
 input[type="file"] {
     margin-bottom: 20px;
+}
+
+hr.hr-details {
+    margin-bottom: 10px;
+    border-color: var(--dark-cyan);
 }
 
 .container {
@@ -37,11 +43,12 @@ input[type="file"] {
 .frame {
     flex: 1;
     padding: 10px;
-    border: 1px solid var(--barn-red);
+    border: 1px solid var(--rich-black);
     margin-right: 10px;
-    background-color: #590d22;
+    background-color: #240046;
     overflow-y: auto;
     height: 80vh;
+    scrollbar-color: #012a4a #eee2df;
 }
 
 .frame:last-child {
@@ -134,7 +141,7 @@ input[type="file"] {
     font-size: 16px;
     font-weight: 600;
     line-height: normal;
-    margin: 0;
+    margin: 10px;
     min-height: 20px;
     min-width: 0;
     outline: none;
@@ -155,7 +162,7 @@ input[type="file"] {
   
   .button-28:hover {
     color: #fff;
-    background-color: var(--midnight-green);
+    background-color: var(--barn-red);
     box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
     transform: translateY(-2px);
   }
