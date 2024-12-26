@@ -1,0 +1,101 @@
+:root {
+    --barn-red: #780000ff;
+    --fire-brick: #c1121fff;
+    --papaya-whip: #fdf0d5ff;
+    --prussian-blue: #003049ff;
+    --air-superiority-blue: #669bbcff;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--prussian-blue);
+    color: var(--papaya-whip);
+    padding: 20px;
+}
+
+h1 {
+    color: var(--fire-brick);
+}
+
+input[type="file"] {
+    margin-bottom: 20px;
+}
+
+.container {
+    display: flex;
+}
+
+.frame {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid var(--barn-red);
+    margin-right: 10px;
+    background-color: var(--barn-red);
+    overflow-y: auto;
+    height: 80vh;
+}
+
+.frame:last-child {
+    margin-right: 0;
+}
+
+.book-title {
+    font-weight: bold;
+    margin-top: 10px;
+    color: var(--air-superiority-blue);
+}
+
+.clipping {
+    margin-left: 20px;
+    cursor: pointer;
+    color: var(--papaya-whip);
+}
+
+.clipping:hover {
+    background-color: var(--fire-brick);
+    color: var(--papaya-whip);
+}
+
+#clippingDetails {
+    background-color: var(--barn-red);
+}
+
+.clipping-title {
+    color: var(--fire-brick);
+}
+
+.clipping-author {
+    color: var(--air-superiority-blue);
+}
+
+.clipping-type {
+    color: var(--fire-brick);
+}
+
+.clipping-location {
+    color: var(--air-superiority-blue);
+}
+
+.clipping-datetime {
+    color: var(--fire-brick);
+}
+
+.clipping-text {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: var(--prussian-blue);
+    border: 1px solid var(--barn-red);
+    position: relative;
+    color: var(--papaya-whip);
+}
+
+.copy-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: var(--fire-brick);
+    color: var(--papaya-whip);
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
