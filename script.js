@@ -79,13 +79,15 @@ function displayClippingDetails(clipping) {
         Type: <span class="clipping-type" id="clippingType">${clipping.type}</span><br />
         Location: <span class="clipping-location">${clipping.location}</span><br />
         Date Added: <span class="clipping-datetime">${clipping.datetime}</span><br />
-        ${clipping.text ? `<div id="clippingText" class="clipping-text">${clipping.text}<br /></div>` : ''}
+        ${clipping.text ? `<div id="clippingText" class="clipping-text">${clipping.text}<br /></div>` : ''}<br />
+        <div id="status-message"><span id="message-display"></span></div>
     `;
 }
 
 function copyToClipboard(text) {
     navigator.clipboard.writeText(text).then(() => {
         flashAreaForMilliseconds('clippingDetails',200);
+        flashMessageForMilliseconds("Copied text to clipboard!", 2000);
     });
 }
 
@@ -105,6 +107,16 @@ function copyAreaToClipboard(areaName) {
 
     setTimeout(function() {
         areaToFlash.style.backgroundColor = originalColor;
+    }, ms);
+}
+
+function flashMessageForMilliseconds(text, ms) {
+    document.getElementById("message-display").innerHTML = text;
+    var statusMessage = document.getElementById("status-message");
+    statusMessage.style.visibility = "visible";
+
+    setTimeout(function() {
+        statusMessage.style.visibility = "hidden";
     }, ms);
 }
 
